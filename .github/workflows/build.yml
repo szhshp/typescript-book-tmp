@@ -1,12 +1,8 @@
+
 name: build ebook
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,6 +15,7 @@ jobs:
         with:
           node-version: '12.18.2'
       - run: sudo apt update
+      - run: sudo apt install libegl1 libopengl0 libxcb-cursor0
       - run: sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
       - run: sudo npm install -g gitbook-cli
       - run: gitbook install
